@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { account } from "../../../accounts";
 import { Account } from "../../models/account";
+import { validationResult } from "express-validator";
 
 export const accountsGet = async (req: Request, res: Response) => {
 	try {
@@ -25,6 +26,13 @@ export const accountsGet = async (req: Request, res: Response) => {
 export const accountCreate = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const { username, funds, image } = req.body;
+		// console.log("val res: ", validationResult(req));  // to print the validation result
+		const resval = validationResult(req); //Store Validation Result in variable
+		if (!resval.isEmpty()) {
+			//ensuring if the validation is not met then
+			res.status(500).json(resval.array()); // throw the error to halt the process
+		}
+		// console.log(username);
 		let imagePath;
 		if (req.file) {
 			imagePath = req.file.path;
