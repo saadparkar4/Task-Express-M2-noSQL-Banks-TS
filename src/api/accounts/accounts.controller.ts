@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { account } from "../../../accounts";
 import { Account } from "../../models/account";
 
@@ -22,18 +22,23 @@ export const accountsGet = async (req: Request, res: Response) => {
 // 	}
 // };
 
-export const accountCreate = async (req: Request, res: Response) => {
+export const accountCreate = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const { username, funds } = req.body;
+		const { username, funds, image } = req.body;
+		let imagePath;
+		if (req.file) {
+			imagePath = req.file.path;
+		}
 		// const allaccount = await Account.find();
 		// const id = allaccount[allaccount.length - 1].id + 1;
-		const newAccount = await Account.create({ username, funds });
+		const newAccount = await Account.create({ username, funds, image: imagePath });
 		// const newAccount = { ...req.body, funds: 0, id };
 		// account.push(newAccount);
 		res.status(201).json(newAccount);
 	} catch (error) {
 		console.log("Error: ", error);
-		res.status(500).json({ message: "Internal Server Error!" });
+		next(error);
+		// res.status(500).json({ message: "Internal Server Error!" });
 	}
 };
 

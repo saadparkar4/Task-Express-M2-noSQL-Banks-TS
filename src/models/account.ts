@@ -4,6 +4,7 @@ const accountSchema = new Schema({
 	// id: { type: String },
 	username: { type: String, require: true, unique: true },
 	funds: { type: Number, default: 0 },
+	image: { type: String },
 });
 
 export const Account = model("account", accountSchema);

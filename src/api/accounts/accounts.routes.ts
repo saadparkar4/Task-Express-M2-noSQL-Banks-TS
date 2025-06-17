@@ -1,6 +1,7 @@
 import express, { NextFunction } from "express";
 const accountsRouter = express.Router();
 import { accountsGet, accountUpdate, accountDelete, accountCreate, getAccountByUsername, getAccountById } from "./accounts.controller";
+import { upload } from "../../middlewares/multer";
 
 accountsRouter.get(
 	"/",
@@ -13,7 +14,7 @@ accountsRouter.get(
 // accountsRouter.get("/", accountsGet);
 accountsRouter.get("/id/:accountId", getAccountById);
 accountsRouter.get("/:username", getAccountByUsername);
-accountsRouter.post("/", accountCreate);
+accountsRouter.post("/", upload.single("image"), accountCreate);
 
 accountsRouter.delete("/:accountId", accountDelete);
 
