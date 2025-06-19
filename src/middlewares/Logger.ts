@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
-import { formattedDate, formattedTime } from "../models/account";
+import { formattedDate, formattedTime } from "../models/Account";
 
 export const Logger = (req: Request, res: Response, next: NextFunction) => {
 	console.log("Request Rcd at", req.method);

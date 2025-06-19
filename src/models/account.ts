@@ -5,9 +5,11 @@ const accountSchema = new Schema({
 	username: { type: String, require: true, unique: true },
 	funds: { type: Number, default: 0 },
 	image: { type: String },
+	locker: [{ type: Schema.Types.ObjectId, ref: "Locker" }], // Now it will store mutliple array of locker ids
+	privilege: [{ type: Schema.Types.ObjectId, ref: "Privilege" }],
 });
 
-export const Account = model("account", accountSchema);
+export const Account = model("Account", accountSchema);
 
 const now = new Date(); // Create a Date object from the current timestamp
 

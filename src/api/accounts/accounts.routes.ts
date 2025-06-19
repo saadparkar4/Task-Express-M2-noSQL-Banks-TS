@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 const accountsRouter = express.Router();
 import { accountsGet, accountUpdate, accountDelete, accountCreate, getAccountByUsername, getAccountById } from "./accounts.controller";
 import { upload } from "../../middlewares/multer";
-import { body, validationResult, ContextRunner, query, check } from "express-validator";
+import { body } from "express-validator";
 
 accountsRouter.get(
 	"/",

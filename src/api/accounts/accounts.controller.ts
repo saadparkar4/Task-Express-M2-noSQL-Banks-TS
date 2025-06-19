@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import { account } from "../../../accounts";
-import { Account } from "../../models/account";
+import { Account } from "../../models/Account";
 import { validationResult } from "express-validator";
 
 export const accountsGet = async (req: Request, res: Response) => {
 	try {
 		// const allaccount = await account.find();
-		const allaccount = await Account.find();
+		const allaccount = await Account.find().populate("locker", "lockerName").populate("privilege", "pName");
 		res.status(200).json(allaccount);
 	} catch (error) {
 		console.log("Error: ", error);
