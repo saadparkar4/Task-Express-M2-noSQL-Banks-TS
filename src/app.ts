@@ -16,6 +16,7 @@ const PORT = 8000;
 app.use(express.json());
 app.use(morgan("dev")); // Defines Mogran Log Level
 app.use(cors()); // Enables CORS in the app
+app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 
 app.use(FormattedLogger);
 app.use(Logger);
